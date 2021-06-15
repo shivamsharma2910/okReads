@@ -34,7 +34,7 @@ describe('Books Reducer', () => {
 
     it('confirmedAddToReadingList action should update the current state by adding an item', () => {
       const action = ReadingListActions.confirmedAddToReadingList({
-        book: createBook('D')
+        book: createBook('D'), fromUndo: false
       });
 
       const result: State = reducer(state, action);
@@ -55,7 +55,7 @@ describe('Books Reducer', () => {
 
     it('confirmedRemoveFromReadingList should update the state by removing an item', () => {
       const action = ReadingListActions.confirmedRemoveFromReadingList({
-        item: createReadingListItem('B')
+        item: createReadingListItem('B'), fromUndo: false
       });
       const result: State = reducer(state, action);
       expect(result.ids.length).toEqual(1);

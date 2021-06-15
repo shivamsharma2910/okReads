@@ -38,6 +38,7 @@
               (click)="addBookToReadingList(book)"
               [disabled]="book.isAdded"
               [attr.aria-label]="'Want to Read ' + book.title"
+              data-testing="add-book"
             >
               Want to Read
             </button>
