@@ -32,24 +32,45 @@ describe('Books Reducer', () => {
       expect(result.ids.length).toEqual(3);
     });
 
-    it('failedAddToReadingList should undo book addition to the state', () => {
-      const action = ReadingListActions.failedAddToReadingList({
-        book: createBook('B')
+    it('confirmedAddToReadingList action should update the current state by adding an item', () => {
+      const action = ReadingListActions.confirmedAddToReadingList({
+        book: createBook('D')
       });
 
       const result: State = reducer(state, action);
-
-      expect(result.ids).toEqual(['A']);
+      expect(result.ids[2]).toEqual('D');
+      expect(result.ids.length).toEqual(3);
     });
 
-    it('failedRemoveFromReadingList should undo book removal from the state', () => {
-      const action = ReadingListActions.failedRemoveFromReadingList({
-        item: createReadingListItem('C')
+    it('failedAddToReadingList should not update the current state', () => {
+      const action = ReadingListActions.failedAddToReadingList({
+        error: 'unable to add book'
       });
 
       const result: State = reducer(state, action);
 
-      expect(result.ids).toEqual(['A', 'B', 'C']);
+      expect(result.ids[0]).toEqual('A');
+      expect(result.ids.length).not.toEqual(3);
+    });
+
+    it('confirmedRemoveFromReadingList should update the state by removing an item', () => {
+      const action = ReadingListActions.confirmedRemoveFromReadingList({
+        item: createReadingListItem('B')
+      });
+      const result: State = reducer(state, action);
+      expect(result.ids.length).toEqual(1);
+      expect(result.ids[0]).toEqual('A');
+    });
+
+    it('failedRemoveFromReadingList should not update the current state', () => {
+      const action = ReadingListActions.failedRemoveFromReadingList({
+        error: 'unable to remove book'
+      });
+
+      const result: State = reducer(state, action);
+
+      expect(result.ids.length).not.toEqual(1);
+      expect(result.ids[1]).toEqual('B');
     });
   });
 

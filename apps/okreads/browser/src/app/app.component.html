@@ -4,10 +4,12 @@
       <div class="header--content">
         <h1>okreads</h1>
         <div>
+          <!-- lighthouse accessibility fix 2 -->
           <button
             data-testing="toggle-reading-list"
             mat-button
             (click)="drawer.toggle()"
+            class="mat-tab-label"
           >
             Reading List
             <tmo-total-count></tmo-total-count>
